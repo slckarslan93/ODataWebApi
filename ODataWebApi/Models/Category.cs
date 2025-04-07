@@ -4,7 +4,7 @@ public sealed class Category
 {
     public Category()
     {
-       Id = Guid.NewGuid();
+        Id = Guid.NewGuid();
     }
 
     public Guid Id { get; set; }

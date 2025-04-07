@@ -7,14 +7,13 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    string connectionString = "Server=localhost;Database=TestODataDb;User Id=sa;Password=Admin123.;TrustServerCertificate=true";   
+    string connectionString = "Server=localhost;Database=TestODataDb;User Id=sa;Password=Admin123.;TrustServerCertificate=true";
     options.UseSqlServer(connectionString);
 });
 
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
-
 
 var app = builder.Build();
 

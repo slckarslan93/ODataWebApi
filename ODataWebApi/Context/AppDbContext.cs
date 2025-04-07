@@ -10,6 +10,5 @@ namespace ODataWebApi.Context
         }
 
         public DbSet<Category> Categories { get; set; }
-
     }
 }

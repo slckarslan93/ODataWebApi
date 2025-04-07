@@ -7,8 +7,8 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    string connectionString = "Data Source=localhost;Initial Catalog=TestODataDb;User ID=sa;Password=********;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";   
-    options.UseSqlServer();
+    string connectionString = "Server=localhost;Database=TestODataDb;User Id=sa;Password=Admin123.;TrustServerCertificate=true";   
+    options.UseSqlServer(connectionString);
 });
 
 builder.Services.AddControllers();

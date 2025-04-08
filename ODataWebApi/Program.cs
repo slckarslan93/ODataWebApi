@@ -53,30 +53,62 @@ app.MapScalarApiReference();
 //    return Results.NoContent();
 //}).Produces(204).WithTags("SeedCategories");
 
-app.MapGet("seed-data/products", async (AppDbContext dbContext) =>
-{
-    var categories = dbContext.Categories.ToList();
+//app.MapGet("seed-data/products", async (AppDbContext dbContext) =>
+//{
+//    var categories = dbContext.Categories.ToList();
 
-    List<Product> products = new();
+//    List<Product> products = new();
+//    for (int i = 0; i < 10000; i++)
+//    {
+//        Faker faker = new();
+//        Product product = new()
+//        {
+//            CategoryId = categories[new Random().Next(categories.Count)].Id,
+//            Name = faker.Commerce.ProductName(),
+//            Price = Convert.ToDecimal(faker.Commerce.Price(100, 1000000, 2))
+//        };
+
+//        products.Add(product);
+//    }
+
+//    dbContext.AddRange(products);
+
+//    await dbContext.SaveChangesAsync();
+
+//    return Results.NoContent();
+//}).Produces(204).WithTags("SeedProducts");
+
+
+
+app.MapGet("seed-data/users", async (AppDbContext dbContext) =>
+{
+    List<User> users = new();
     for (int i = 0; i < 10000; i++)
     {
         Faker faker = new();
-        Product product = new()
+
+        Random random = new();
+        var typeValue = random.Next(0, 2);
+        var userType = UserTypeEnum.FromValue(typeValue);
+
+        User user = new()
         {
-            CategoryId = categories[new Random().Next(categories.Count)].Id,
-            Name = faker.Commerce.ProductName(),
-            Price = Convert.ToDecimal(faker.Commerce.Price(100, 1000000, 2))
+            FirstName = faker.Person.FirstName,
+            LastName = faker.Person.LastName,
+            UserType = userType,
+            Address = new(faker.Address.City(), faker.Address.State(), faker.Address.FullAddress())
         };
 
-        products.Add(product);
+        users.Add(user);
     }
 
-    dbContext.AddRange(products);
+    dbContext.AddRange(users);
 
     await dbContext.SaveChangesAsync();
 
     return Results.NoContent();
-}).Produces(204).WithTags("SeedProducts");
+});
+
 
 app.MapControllers();
 

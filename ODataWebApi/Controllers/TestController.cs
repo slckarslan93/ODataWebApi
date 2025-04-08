@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using ODataWebApi.Context;
+using ODataWebApi.Dtos;
 using ODataWebApi.Models;
 
 namespace ODataWebApi.Controllers;
@@ -12,7 +14,7 @@ namespace ODataWebApi.Controllers;
 [Route("odata")]
 [ApiController]
 [EnableQuery]
-public sealed class TestController(AppDbContext context) : ControllerBase
+public sealed class TestController(AppDbContext context) : ODataController
 {
     public static IEdmModel GetEdmModel()
     {
@@ -32,10 +34,36 @@ public sealed class TestController(AppDbContext context) : ControllerBase
         return categories;
     }
 
-    [HttpGet("Products")]
-    public IQueryable<Product> Products()
+    [HttpGet("Products-dto")]
+    public IQueryable<ProductDto> ProductsDto()
     {
-        var products = context.Products.AsQueryable();
+        var products = context.Products.Select(s => new ProductDto 
+        { 
+            Id = s.Id,
+            Name = s.Name,
+            Price = s.Price,
+            CategoryName = s.Category != null ? s.Category.Name : string.Empty
+        }).AsQueryable();
         return products;
+    }
+
+
+    [HttpGet("users")]
+    public IActionResult Users()
+    {
+        var users = context.Users
+            .Select(s => new UserDto
+            {
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                FullName = s.FullName,
+                Address = s.Address,
+                Id = s.Id,
+                UserType = s.UserType,
+                UserTypeName = s.UserType.Name,
+                UserTypeValue = s.UserType.Value
+            })
+            .AsQueryable();
+        return Ok(users);
     }
 }

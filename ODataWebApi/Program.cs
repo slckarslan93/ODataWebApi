@@ -1,4 +1,5 @@
 using Bogus;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using ODataWebApi.Context;
 using ODataWebApi.Models;
@@ -11,7 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddOData(opt => opt.EnableQueryFeatures());
 
 builder.Services.AddOpenApi();
 

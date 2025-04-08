@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using ODataWebApi.Context;
 using ODataWebApi.Models;
 
@@ -10,9 +11,10 @@ namespace ODataWebApi.Controllers;
 public sealed class TestController(AppDbContext context) : ControllerBase
 {
     [HttpGet("categories")]
-    public List<Category> Categories() 
+    [EnableQuery]
+    public IQueryable<Category> Categories() 
     {
-        var categories =context.Categories.ToList();
+        var categories =context.Categories.AsQueryable();
         return categories;
     }
 }

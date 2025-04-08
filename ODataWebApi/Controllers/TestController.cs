@@ -19,8 +19,10 @@ public sealed class TestController(AppDbContext context) : ODataController
     public static IEdmModel GetEdmModel()
     {
         ODataConventionModelBuilder builder = new();
+        builder.EnableLowerCamelCase();
         builder.EntitySet<Category>("Categories");
         builder.EntitySet<Product>("Products");
+        builder.EntitySet<UserDto>("users");
         return builder.GetEdmModel();
     }
 

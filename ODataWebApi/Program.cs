@@ -36,7 +36,7 @@ app.MapGet("seed-data/categories", async (AppDbContext dbContext) =>
     await dbContext.SaveChangesAsync();
 
     return Results.NoContent();
-});
+}).Produces(204).WithTags("SeedCategories");
 
 app.MapControllers();
 

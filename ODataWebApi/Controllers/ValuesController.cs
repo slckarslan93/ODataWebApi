@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
-using ODataWebApi.Context;
-using ODataWebApi.Models;
-
-namespace ODataWebApi.Controllers
+﻿namespace ODataWebApi.Controllers
 {
     //[Route("api/[controller]")]
     //[ApiController]

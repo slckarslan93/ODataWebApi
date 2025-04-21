@@ -15,7 +15,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 //builder.Services.AddControllers().AddOData(opt => opt.EnableQueryFeatures()); //Tum filtreleme ve sýralama özelliklerini açar
 
-
 builder.Services.AddControllers().AddOData(opt =>
 opt
 .Select()
@@ -24,9 +23,8 @@ opt
 .Expand()
 .OrderBy()
 .SetMaxTop(null)
-.AddRouteComponents("odata",TestController.GetEdmModel())
+.AddRouteComponents("odata", TestController.GetEdmModel())
 );
-
 
 builder.Services.AddOpenApi();
 
@@ -78,8 +76,6 @@ app.MapScalarApiReference();
 //    return Results.NoContent();
 //}).Produces(204).WithTags("SeedProducts");
 
-
-
 app.MapGet("seed-data/users", async (AppDbContext dbContext) =>
 {
     List<User> users = new();
@@ -108,7 +104,6 @@ app.MapGet("seed-data/users", async (AppDbContext dbContext) =>
 
     return Results.NoContent();
 });
-
 
 app.MapControllers();
 

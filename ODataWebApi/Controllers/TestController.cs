@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.OData.Edm;
@@ -26,10 +25,7 @@ public sealed class TestController(AppDbContext context) : ODataController
         return builder.GetEdmModel();
     }
 
-
     [HttpGet("categories")]
-    //[EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Top | AllowedQueryOptions.Select | AllowedQueryOptions.Filter)]
-    //[EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All &~ AllowedQueryOptions.Select)]
     public IQueryable<Category> Categories()
     {
         var categories = context.Categories.AsQueryable();
@@ -39,8 +35,8 @@ public sealed class TestController(AppDbContext context) : ODataController
     [HttpGet("Products-dto")]
     public IQueryable<ProductDto> ProductsDto()
     {
-        var products = context.Products.Select(s => new ProductDto 
-        { 
+        var products = context.Products.Select(s => new ProductDto
+        {
             Id = s.Id,
             Name = s.Name,
             Price = s.Price,
@@ -48,7 +44,6 @@ public sealed class TestController(AppDbContext context) : ODataController
         }).AsQueryable();
         return products;
     }
-
 
     [HttpGet("users")]
     public IActionResult Users()

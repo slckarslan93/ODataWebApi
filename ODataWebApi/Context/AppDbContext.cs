@@ -25,7 +25,7 @@ namespace ODataWebApi.Context
                 builder.Property(p => p.UserType)
                 .HasConversion(type => type.Value, value => UserTypeEnum.FromValue(value)); //db ye enum valuesini kaydet donuste vallue ya gore uygun enumi don
 
-                builder.OwnsOne(p => p.Address); //Direkt adress olarak eklemiyor edressin altindaki propertyleride db ye eklemis oluyor addres_City, addres_Town, addres_FullAddress gibi 
+                builder.OwnsOne(p => p.Address); //Direkt adress olarak eklemiyor edressin altindaki propertyleride db ye eklemis oluyor addres_City, addres_Town, addres_FullAddress gibi
             });
         }
     }
